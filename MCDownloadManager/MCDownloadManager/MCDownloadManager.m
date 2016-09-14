@@ -18,7 +18,7 @@ static NSString * cacheFolder() {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (!cacheFolder) {
-            NSString *cacheDir = NSHomeDirectory();
+            NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject;
             cacheFolder = [cacheDir stringByAppendingPathComponent:MCDownloadCacheFolderName];
         }
         NSError *error = nil;

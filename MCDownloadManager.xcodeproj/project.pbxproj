@@ -15,6 +15,7 @@
 		9B24E5CF1D7D44D300AA2ECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5CE1D7D44D300AA2ECC /* Assets.xcassets */; };
 		9B24E5D21D7D44D300AA2ECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5D01D7D44D300AA2ECC /* LaunchScreen.storyboard */; };
 		9B24E5DC1D7D453B00AA2ECC /* MCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */; };
+		9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2989E71D891B5E00931219 /* MCWiFiManager.m */; };
 		9B48433B1D7E572900A2CBBE /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4843181D7E572900A2CBBE /* AFHTTPSessionManager.m */; };
 		9B48433C1D7E572900A2CBBE /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48431B1D7E572900A2CBBE /* AFNetworkReachabilityManager.m */; };
 		9B48433D1D7E572900A2CBBE /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48431D1D7E572900A2CBBE /* AFSecurityPolicy.m */; };
@@ -50,6 +51,8 @@
 		9B24E5D31D7D44D300AA2ECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B24E5DA1D7D453B00AA2ECC /* MCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadManager.h; sourceTree = "<group>"; };
 		9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadManager.m; sourceTree = "<group>"; };
+		9B2989E61D891B5E00931219 /* MCWiFiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCWiFiManager.h; sourceTree = "<group>"; };
+		9B2989E71D891B5E00931219 /* MCWiFiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCWiFiManager.m; sourceTree = "<group>"; };
 		9B4843171D7E572900A2CBBE /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		9B4843181D7E572900A2CBBE /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		9B4843191D7E572900A2CBBE /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 			children = (
 				9B24E5DA1D7D453B00AA2ECC /* MCDownloadManager.h */,
 				9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */,
+				9B2989E61D891B5E00931219 /* MCWiFiManager.h */,
+				9B2989E71D891B5E00931219 /* MCWiFiManager.m */,
 			);
 			path = MCDownloadManager;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 				TargetAttributes = {
 					9B24E5BE1D7D44D300AA2ECC = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = XC34BSW465;
 					};
 				};
 			};
@@ -287,6 +293,7 @@
 				9B48433D1D7E572900A2CBBE /* AFSecurityPolicy.m in Sources */,
 				9B4843481D7E572900A2CBBE /* UIImageView+AFNetworking.m in Sources */,
 				9B48433F1D7E572900A2CBBE /* AFURLResponseSerialization.m in Sources */,
+				9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */,
 				9B24E5CA1D7D44D300AA2ECC /* ViewController.m in Sources */,
 				9B4843491D7E572900A2CBBE /* UIProgressView+AFNetworking.m in Sources */,
 				9B4843441D7E572900A2CBBE /* AFImageDownloader.m in Sources */,
@@ -417,6 +424,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MCDownloadManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -429,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MCDownloadManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
