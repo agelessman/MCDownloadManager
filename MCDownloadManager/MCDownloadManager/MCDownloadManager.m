@@ -205,7 +205,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     configuration.requestCachePolicy = NSURLRequestUseProtocolCachePolicy;
     configuration.allowsCellularAccess = YES;
     configuration.timeoutIntervalForRequest = 60.0;
-   
+    configuration.HTTPMaximumConnectionsPerHost = 10;
     return configuration;
 }
 
@@ -332,15 +332,15 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         self.tasks[receipt.url] = task;
         [self.queuedTasks addObject:task];
         
-        [self resumeWithURL:receipt.url];
-        
+        [self resumeWithDownloadReceipt:receipt];
+
         
         });
     return receipt;
 }
 
-- (NSURLSessionDownloadTask*)safelyRemoveTaskWithURLIdentifier:(NSString *)URLIdentifier {
-    __block NSURLSessionDownloadTask *task = nil;
+- (NSURLSessionDataTask*)safelyRemoveTaskWithURLIdentifier:(NSString *)URLIdentifier {
+    __block NSURLSessionDataTask *task = nil;
     dispatch_sync(self.synchronizationQueue, ^{
         task = [self removeTaskWithURLIdentifier:URLIdentifier];
     });
@@ -348,8 +348,8 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 }
 
 //This method should only be called from safely within the synchronizationQueue
-- (NSURLSessionDownloadTask *)removeTaskWithURLIdentifier:(NSString *)URLIdentifier {
-    NSURLSessionDownloadTask *task = self.tasks[URLIdentifier];
+- (NSURLSessionDataTask *)removeTaskWithURLIdentifier:(NSString *)URLIdentifier {
+    NSURLSessionDataTask *task = self.tasks[URLIdentifier];
     [self.tasks removeObjectForKey:URLIdentifier];
     return task;
 }
@@ -366,7 +366,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     dispatch_sync(self.synchronizationQueue, ^{
         if ([self isActiveRequestCountBelowMaximumLimit]) {
             while (self.queuedTasks.count > 0) {
-                NSURLSessionDownloadTask *task = [self dequeueTask];
+                NSURLSessionDataTask *task = [self dequeueTask];
                 MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
                 if (task.state == NSURLSessionTaskStateSuspended && receipt.state == MCDownloadStateWillResume) {
                     [self startTask:task];
@@ -378,13 +378,13 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 }
 
 
-- (void)startTask:(NSURLSessionDownloadTask *)task {
+- (void)startTask:(NSURLSessionDataTask *)task {
     [task resume];
     ++self.activeRequestCount;
     [self updateReceiptWithURL:task.taskDescription state:MCDownloadStateDownloading];
 }
 
-- (void)enqueueTask:(NSURLSessionDownloadTask *)task {
+- (void)enqueueTask:(NSURLSessionDataTask *)task {
     switch (self.downloadPrioritizaton) {
         case MCDownloadPrioritizationFIFO:  //
             [self.queuedTasks addObject:task];
@@ -395,8 +395,8 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     }
 }
 
-- (NSURLSessionDownloadTask *)dequeueTask {
-    NSURLSessionDownloadTask *task = nil;
+- (NSURLSessionDataTask *)dequeueTask {
+    NSURLSessionDataTask *task = nil;
     task = [self.queuedTasks firstObject];
     [self.queuedTasks removeObject:task];
     return task;
@@ -461,7 +461,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 - (void)suspendAll {
     
-    for (NSURLSessionDownloadTask *task in self.queuedTasks) {
+    for (NSURLSessionDataTask *task in self.queuedTasks) {
         [task suspend];
         MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
         receipt.state = MCDownloadStateSuspened;
@@ -534,17 +534,22 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
-    MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
     
-    [receipt.stream write:data.bytes maxLength:data.length];
-
-    receipt.progress.totalUnitCount = receipt.totalBytesExpectedToWrite;
-    receipt.progress.completedUnitCount = receipt.totalBytesWritten;
-   dispatch_async(dispatch_get_main_queue(), ^{
-       if (receipt.progressBlock) {
-           receipt.progressBlock(receipt.progress,receipt);
-       }
-   });
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
+        
+        [receipt.stream write:data.bytes maxLength:data.length];
+        
+        receipt.progress.totalUnitCount = receipt.totalBytesExpectedToWrite;
+        receipt.progress.completedUnitCount = receipt.totalBytesWritten;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (receipt.progressBlock) {
+                receipt.progressBlock(receipt.progress,receipt);
+            }
+        });
+    });
+   
 
 }
 

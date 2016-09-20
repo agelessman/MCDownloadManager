@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "MCDownloadManager.h"
 #import "TableViewCell.h"
+#import "MCWiFiManager.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -33,6 +34,12 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.view.backgroundColor = [UIColor whiteColor];
 
+    MCWiFiManager *wifiManager = [[MCWiFiManager alloc] init];
+    [wifiManager scanNetworksWithCompletionHandler:^(NSArray<MCWiFi *> * _Nullable networks, MCWiFi * _Nullable currentWiFi, NSError * _Nullable error) {
+        NSLog(@"name:%@ -- mac:%@",currentWiFi.wifiName,currentWiFi.wifiBSSID);
+    }];
+    
+    NSLog(@"网关：%@",[wifiManager getGatewayIpForCurrentWiFi]);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

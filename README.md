@@ -3,6 +3,16 @@ A simple and convenient multi task download manager
 
 ![](http://images2015.cnblogs.com/blog/637318/201609/637318-20160912112148570-1105374973.gif)
 
+## Attention
+
+这个版本默认只支持同时下载10个文件
+This version only supports 10 file downloads at the same time.
+
+若要支持更多，请修改下边的代码
+
+`configuration.HTTPMaximumConnectionsPerHost = 10;`
+
+
 ## Usage
 	- (void)download {
 	    [[MCDownloadManager defaultInstance] downloadFileWithURL:self.url
@@ -22,3 +32,4 @@ A simple and convenient multi task download manager
 	                                                     }];
 	
 	}
+	
