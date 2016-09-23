@@ -34,6 +34,9 @@
 		9B48434A1D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4843381D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m */; };
 		9B48434B1D7E572900A2CBBE /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48433A1D7E572900A2CBBE /* UIWebView+AFNetworking.m */; };
 		9B48434E1D7EC00E00A2CBBE /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48434D1D7EC00E00A2CBBE /* TableViewCell.m */; };
+		9B9CE6281D92538E0045E869 /* MCURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9CE6271D92538E0045E869 /* MCURLResponse.m */; };
+		9BA54A981D9511F800C2E8D5 /* MCURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */; };
+		9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +93,12 @@
 		9B48433A1D7E572900A2CBBE /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		9B48434C1D7EC00E00A2CBBE /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		9B48434D1D7EC00E00A2CBBE /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
+		9B9CE6261D92538D0045E869 /* MCURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLResponse.h; sourceTree = "<group>"; };
+		9B9CE6271D92538E0045E869 /* MCURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLResponse.m; sourceTree = "<group>"; };
+		9BA54A961D9511F800C2E8D5 /* MCURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequest.h; sourceTree = "<group>"; };
+		9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequest.m; sourceTree = "<group>"; };
+		9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLSessionConfiguration.h; sourceTree = "<group>"; };
+		9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLSessionConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +165,12 @@
 				9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */,
 				9B2989E61D891B5E00931219 /* MCWiFiManager.h */,
 				9B2989E71D891B5E00931219 /* MCWiFiManager.m */,
+				9B9CE6261D92538D0045E869 /* MCURLResponse.h */,
+				9B9CE6271D92538E0045E869 /* MCURLResponse.m */,
+				9BA54A961D9511F800C2E8D5 /* MCURLRequest.h */,
+				9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */,
+				9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */,
+				9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */,
 			);
 			path = MCDownloadManager;
 			sourceTree = "<group>";
@@ -291,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B48433D1D7E572900A2CBBE /* AFSecurityPolicy.m in Sources */,
+				9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */,
 				9B4843481D7E572900A2CBBE /* UIImageView+AFNetworking.m in Sources */,
 				9B48433F1D7E572900A2CBBE /* AFURLResponseSerialization.m in Sources */,
 				9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */,
@@ -304,12 +320,14 @@
 				9B4843461D7E572900A2CBBE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9B48433B1D7E572900A2CBBE /* AFHTTPSessionManager.m in Sources */,
 				9B48434A1D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m in Sources */,
+				9BA54A981D9511F800C2E8D5 /* MCURLRequest.m in Sources */,
 				9B48434B1D7E572900A2CBBE /* UIWebView+AFNetworking.m in Sources */,
 				9B4843401D7E572900A2CBBE /* AFURLSessionManager.m in Sources */,
 				9B24E5C71D7D44D300AA2ECC /* AppDelegate.m in Sources */,
 				9B48433C1D7E572900A2CBBE /* AFNetworkReachabilityManager.m in Sources */,
 				9B0E8D281D825CDC00452963 /* QKYDelayButton.m in Sources */,
 				9B24E5C41D7D44D300AA2ECC /* main.m in Sources */,
+				9B9CE6281D92538E0045E869 /* MCURLResponse.m in Sources */,
 				9B4843421D7E572900A2CBBE /* README.md in Sources */,
 				9B4843451D7E572900A2CBBE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				9B48433E1D7E572900A2CBBE /* AFURLRequestSerialization.m in Sources */,

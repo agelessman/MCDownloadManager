@@ -60,9 +60,6 @@ typedef NS_ENUM(NSInteger, MCDownloadPrioritization) {
 
 @protocol MCDownloadControlDelegate <NSObject>
 
-- (void)resumeWithURL:(NSString * _Nonnull)url;
-- (void)resumeWithDownloadReceipt:(MCDownloadReceipt * _Nonnull)receipt;
-
 - (void)suspendWithURL:(NSString * _Nonnull)url;
 - (void)suspendWithDownloadReceipt:(MCDownloadReceipt * _Nonnull)receipt;
 

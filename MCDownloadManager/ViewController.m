@@ -40,6 +40,7 @@
     }];
     
     NSLog(@"网关：%@",[wifiManager getGatewayIpForCurrentWiFi]);
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

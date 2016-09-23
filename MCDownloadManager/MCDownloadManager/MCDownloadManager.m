@@ -451,7 +451,12 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 - (void)resumeWithDownloadReceipt:(MCDownloadReceipt *)receipt {
     
     if ([self isActiveRequestCountBelowMaximumLimit]) {
-        [self startTask:self.tasks[receipt.url]];
+        if (!self.tasks[receipt.url]) {
+            [self downloadFileWithURL:receipt.url progress:receipt.progressBlock destination:nil success:receipt.successBlock failure:receipt.failureBlock];
+        }else {
+            [self startTask:self.tasks[receipt.url]];
+        }
+        
     }else {
         receipt.state = MCDownloadStateWillResume;
         [self saveReceipts:self.allDownloadReceipts];
@@ -465,6 +470,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         [task suspend];
         MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
         receipt.state = MCDownloadStateSuspened;
+        [receipt.stream close];
     }
     @synchronized (self) {
         [self saveReceipts:self.allDownloadReceipts];
@@ -487,6 +493,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     if (task) {
         [task suspend];
     }
+    [receipt.stream close];
 }
 
 

@@ -71,7 +71,8 @@
         [[MCDownloadManager defaultInstance] suspendWithDownloadReceipt:receipt];
     }else if (receipt.state == MCDownloadStateSuspened) {
         [self.button setTitle:@"停止" forState:UIControlStateNormal];
-        [[MCDownloadManager defaultInstance] resumeWithDownloadReceipt:receipt];
+    
+        [self download];
     }else if (receipt.state == MCDownloadStateWillResume) {
         [self.button setTitle:@"下载" forState:UIControlStateNormal];
          [[MCDownloadManager defaultInstance] removeWithDownloadReceipt:receipt];
