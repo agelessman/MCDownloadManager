@@ -305,7 +305,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         receipt.failureBlock = failure;
         receipt.progressBlock = downloadProgressBlock;
         
-        if (receipt.state == MCDownloadStateCompleted) {
+        if (receipt.state == MCDownloadStateCompleted && receipt.totalBytesWritten == receipt.totalBytesExpectedToWrite) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (receipt.successBlock) {
                     receipt.successBlock(nil,nil,[NSURL URLWithString:receipt.url]);
