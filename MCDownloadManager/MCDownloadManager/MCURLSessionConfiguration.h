@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MCURLSessionConfiguration : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
+@interface MCURLSessionConfiguration : NSObject
++ (MCURLSessionConfiguration *)defaultURLSessionConfiguration;
++ (MCURLSessionConfiguration *)ephemeralURLSessionConfiguration;
++ (MCURLSessionConfiguration *)backgroundURLSessionConfigurationWithIdentifier:(NSString *)identifier;
 @end
+
+NS_ASSUME_NONNULL_END

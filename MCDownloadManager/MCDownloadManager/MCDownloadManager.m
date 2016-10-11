@@ -323,15 +323,18 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
             return ;
         }
 
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:receipt.url]];
-        NSString *range = [NSString stringWithFormat:@"bytes=%zd-", receipt.totalBytesWritten];
-        [request setValue:range forHTTPHeaderField:@"Range"];
         
-        NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
-        task.taskDescription = receipt.url;
-        self.tasks[receipt.url] = task;
-        [self.queuedTasks addObject:task];
         
+        if (!self.tasks[receipt.url]) {
+            
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:receipt.url]];
+            NSString *range = [NSString stringWithFormat:@"bytes=%zd-", receipt.totalBytesWritten];
+            [request setValue:range forHTTPHeaderField:@"Range"];
+            NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
+            task.taskDescription = receipt.url;
+            self.tasks[receipt.url] = task;
+            [self.queuedTasks addObject:task];
+        }
         [self resumeWithDownloadReceipt:receipt];
 
         
@@ -470,7 +473,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         [task suspend];
         MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
         receipt.state = MCDownloadStateSuspened;
-        [receipt.stream close];
+
     }
     @synchronized (self) {
         [self saveReceipts:self.allDownloadReceipts];
@@ -493,7 +496,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     if (task) {
         [task suspend];
     }
-    [receipt.stream close];
+
 }
 
 
@@ -528,12 +531,12 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSHTTPURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler
 {
     MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
-    receipt.totalBytesExpectedToWrite = dataTask.countOfBytesExpectedToReceive;
+    receipt.totalBytesExpectedToWrite = receipt.totalBytesWritten + dataTask.countOfBytesExpectedToReceive;
     receipt.state = MCDownloadStateDownloading;
     @synchronized (self) {
         [self saveReceipts:self.allDownloadReceipts];
     }
-   
+  
     [receipt.stream open];
     
     completionHandler(NSURLSessionResponseAllow);
@@ -550,6 +553,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         
         receipt.progress.totalUnitCount = receipt.totalBytesExpectedToWrite;
         receipt.progress.completedUnitCount = receipt.totalBytesWritten;
+  
         dispatch_async(dispatch_get_main_queue(), ^{
             if (receipt.progressBlock) {
                 receipt.progressBlock(receipt.progress,receipt);

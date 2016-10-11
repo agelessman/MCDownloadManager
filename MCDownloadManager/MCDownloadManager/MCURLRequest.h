@@ -49,8 +49,8 @@ typedef NS_ENUM(NSUInteger, MCHTTPMethod) {
 + (instancetype)URLRequestWithConfiguration:(MCURLSessionConfiguration *)configuration delegate:(nullable id <MCURLRequestDelegate>)delegate delegateQueue:(nullable NSOperationQueue *)queue;
 
 @property (nonatomic, readonly, retain) NSOperationQueue *delegateQueue;
-@property (nonatomic, nullable, readonly, retain) id <MCURLRequestDelegate> delegate;
-@property (nonatomic, readonly, copy) MCURLSessionConfiguration *configuration;
+@property (nonatomic, nullable, retain) id <MCURLRequestDelegate> delegate;
+@property (nonatomic, copy) MCURLSessionConfiguration *configuration;
 
 ///---------------------------------------
 /// Parameters
@@ -58,6 +58,8 @@ typedef NS_ENUM(NSUInteger, MCHTTPMethod) {
 // 参数，有字典，url，， nsdate ，流，  反正式afn提供的。
 @property (nonatomic, copy, nullable) NSString *url;
 @property (nonatomic, copy, nullable) NSDictionary *parameterDict;
+@property (nonatomic, assign) MCHTTPMethod HTTPMethod;
+@property (nonatomic, assign, getter=isCacheResponse) BOOL cacheResponse;
 
 // 跟上传相关
 @property (nonatomic, strong, nullable) NSData *data;
@@ -69,7 +71,7 @@ typedef NS_ENUM(NSUInteger, MCHTTPMethod) {
 @property (nonatomic, copy, nullable) NSString *mimeType;
 @property (nonatomic, assign) int64_t length;
 
-@property (nonatomic, assign) MCHTTPMethod HTTPMethod;
+
 
 ///---------------------------------------
 /// Load Datas

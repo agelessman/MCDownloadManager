@@ -15,6 +15,7 @@
 		9B24E5CF1D7D44D300AA2ECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5CE1D7D44D300AA2ECC /* Assets.xcassets */; };
 		9B24E5D21D7D44D300AA2ECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5D01D7D44D300AA2ECC /* LaunchScreen.storyboard */; };
 		9B24E5DC1D7D453B00AA2ECC /* MCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */; };
+		9B27A98E1D9E5A8D00A11EC9 /* MCURLRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */; };
 		9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2989E71D891B5E00931219 /* MCWiFiManager.m */; };
 		9B48433B1D7E572900A2CBBE /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4843181D7E572900A2CBBE /* AFHTTPSessionManager.m */; };
 		9B48433C1D7E572900A2CBBE /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48431B1D7E572900A2CBBE /* AFNetworkReachabilityManager.m */; };
@@ -54,6 +55,8 @@
 		9B24E5D31D7D44D300AA2ECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B24E5DA1D7D453B00AA2ECC /* MCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadManager.h; sourceTree = "<group>"; };
 		9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadManager.m; sourceTree = "<group>"; };
+		9B27A98C1D9E5A8D00A11EC9 /* MCURLRequestCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequestCenter.h; sourceTree = "<group>"; };
+		9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequestCenter.m; sourceTree = "<group>"; };
 		9B2989E61D891B5E00931219 /* MCWiFiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCWiFiManager.h; sourceTree = "<group>"; };
 		9B2989E71D891B5E00931219 /* MCWiFiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCWiFiManager.m; sourceTree = "<group>"; };
 		9B4843171D7E572900A2CBBE /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */,
 				9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */,
 				9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */,
+				9B27A98C1D9E5A8D00A11EC9 /* MCURLRequestCenter.h */,
+				9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */,
 			);
 			path = MCDownloadManager;
 			sourceTree = "<group>";
@@ -259,12 +264,11 @@
 		9B24E5B71D7D44D300AA2ECC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = qikeyun;
 				TargetAttributes = {
 					9B24E5BE1D7D44D300AA2ECC = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = XC34BSW465;
 					};
 				};
 			};
@@ -315,6 +319,7 @@
 				9B4843441D7E572900A2CBBE /* AFImageDownloader.m in Sources */,
 				9B4843431D7E572900A2CBBE /* AFAutoPurgingImageCache.m in Sources */,
 				9B48434E1D7EC00E00A2CBBE /* TableViewCell.m in Sources */,
+				9B27A98E1D9E5A8D00A11EC9 /* MCURLRequestCenter.m in Sources */,
 				9B24E5DC1D7D453B00AA2ECC /* MCDownloadManager.m in Sources */,
 				9B4843471D7E572900A2CBBE /* UIButton+AFNetworking.m in Sources */,
 				9B4843461D7E572900A2CBBE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -370,8 +375,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -414,8 +421,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -443,6 +452,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MCDownloadManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -456,6 +466,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MCDownloadManager/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
