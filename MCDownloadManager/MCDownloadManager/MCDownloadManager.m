@@ -18,7 +18,7 @@ static NSString * cacheFolder() {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         if (!cacheFolder) {
-            NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).lastObject;
+            NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
             cacheFolder = [cacheDir stringByAppendingPathComponent:MCDownloadCacheFolderName];
         }
         NSError *error = nil;
@@ -27,7 +27,6 @@ static NSString * cacheFolder() {
             cacheFolder = nil;
         }
     });
-    
     return cacheFolder;
 }
 
@@ -567,9 +566,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
     MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
-    [receipt.stream close];
-    receipt.stream = nil;
-
+    
     if (error) {
         receipt.state = MCDownloadStateFailed;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -578,6 +575,8 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
             }
         });
     }else {
+        [receipt.stream close];
+        receipt.stream = nil;
         receipt.state = MCDownloadStateCompleted;
         dispatch_async(dispatch_get_main_queue(), ^{
             if (receipt.successBlock) {
