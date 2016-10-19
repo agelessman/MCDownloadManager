@@ -468,13 +468,14 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 - (void)suspendAll {
     
-    for (NSURLSessionDataTask *task in self.queuedTasks) {
-        [task suspend];
-        MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
-        receipt.state = MCDownloadStateSuspened;
-
-    }
+   
     @synchronized (self) {
+        for (NSURLSessionDataTask *task in self.queuedTasks) {
+            
+            MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
+            receipt.state = MCDownloadStateFailed;
+            [task suspend];
+        }
         [self saveReceipts:self.allDownloadReceipts];
     }
     
