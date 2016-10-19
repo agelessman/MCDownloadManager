@@ -430,7 +430,7 @@ char * getdefaultgateway(in_addr_t * addr)
                 NSDictionary *dict = (NSDictionary*)CFBridgingRelease(myDict);
                 wifiName = [dict valueForKey:(__bridge NSString *)kCNNetworkInfoKeySSID];
                 wifiBSSID = [dict valueForKey:(__bridge NSString *)kCNNetworkInfoKeyBSSID];
-                CFRelease(myDict);
+              
                 break;
             }
         }
