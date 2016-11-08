@@ -555,7 +555,7 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         __block NSError *error = nil;
         
-        dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
             NSInputStream *inputStream =  [[NSInputStream alloc] initWithData:data];;
