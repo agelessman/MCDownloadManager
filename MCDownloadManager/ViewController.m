@@ -10,8 +10,9 @@
 #import "MCDownloadManager.h"
 #import "TableViewCell.h"
 #import "MCWiFiManager.h"
+#import <MediaPlayer/MediaPlayer.h>
 
-@interface ViewController ()
+@interface ViewController () <TableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (strong, nonatomic) NSMutableArray *urls;
 @end
@@ -24,7 +25,7 @@
         self.urls = [NSMutableArray array];
         for (int i = 1; i<=10; i++) {
             [self.urls addObject:[NSString stringWithFormat:@"http://120.25.226.186:32812/resources/videos/minion_%02d.mp4", i]];
-
+       
         }
     }
     return _urls;
@@ -53,6 +54,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     cell.url = self.urls[indexPath.row];
+    cell.delegate = self;
     return cell;
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -68,7 +70,61 @@
     }
 }
 
+- (IBAction)nextAction:(id)sender {
+    
+    NSArray *urls = @[
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F1.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F2.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F3.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F4.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F5.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F6.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F7.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F8.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F9.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F10.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F11.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F12.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F13.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F14.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F15.jpg",
+          @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F16.jpg"
+          ];
 
+    for (NSString *url in urls) {
+           [[MCDownloadManager defaultInstance] downloadFileWithURL:url progress:^(NSProgress * _Nonnull downloadProgress, MCDownloadReceipt * _Nonnull receipt) {
+               
+           } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+              
+               return nil;
+           } success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSURL * _Nonnull filePath) {
+               
+               NSLog(@"----====");
+               NSFileManager *filemgr = [NSFileManager defaultManager];
+               NSString *cacheFolder;
+               NSString *cacheDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES).firstObject;
+               cacheFolder = [cacheDir stringByAppendingPathComponent:@"diyizhang"];
+               NSError *error = nil;
+               if(![filemgr createDirectoryAtPath:cacheFolder withIntermediateDirectories:YES attributes:nil error:&error]) {
+                   NSLog(@"Failed to create cache directory at %@", cacheFolder);
+                   cacheFolder = nil;
+               }
+               MCDownloadReceipt * receipt = [[MCDownloadManager defaultInstance] downloadReceiptForURL:url];
+               [filemgr copyItemAtPath:receipt.filePath toPath:[cacheFolder stringByAppendingPathComponent:receipt.filename] error:nil];
+               [filemgr removeItemAtPath:receipt.filePath error:nil];
+           } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+               
+           }];
+    }
+ 
+    
+}
+
+- (void)cell:(TableViewCell *)cell didClickedBtn:(UIButton *)btn {
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    MPMoviePlayerViewController *mpc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:cell.url]];
+    [vc presentViewController:mpc animated:YES completion:nil];
+}
 
 
 @end

@@ -8,7 +8,7 @@
 
 #import "TableViewCell.h"
 #import "MCDownloadManager.h"
-#import <MediaPlayer/MediaPlayer.h>
+
 
 
 @implementation TableViewCell
@@ -55,14 +55,15 @@
 - (IBAction)buttonAction:(UIButton *)sender {
     
     MCDownloadReceipt *receipt = [[MCDownloadManager defaultInstance] downloadReceiptForURL:self.url];
-    
+ 
     if (receipt.state == MCDownloadStateDownloading) {
         [self.button setTitle:@"下载" forState:UIControlStateNormal];
         [[MCDownloadManager defaultInstance] suspendWithDownloadReceipt:receipt];
     }else if (receipt.state == MCDownloadStateCompleted) {
-        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-        MPMoviePlayerViewController *mpc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:receipt.filePath]];
-        [vc presentViewController:mpc animated:YES completion:nil];
+
+        if ([self.delegate respondsToSelector:@selector(cell:didClickedBtn:)]) {
+            [self.delegate cell:self didClickedBtn:sender];
+        }
     }else {
         [self.button setTitle:@"停止" forState:UIControlStateNormal];
         [self download];
@@ -76,7 +77,7 @@
                                                         
                                                         if ([receipt.url isEqualToString:self.url]) {
                                                             self.progressView.progress = downloadProgress.fractionCompleted ;
-
+                                                            self.bytesLable.text = [NSString stringWithFormat:@"%0.2fm/%0.2fm", downloadProgress.completedUnitCount/1024.0/1024, downloadProgress.totalUnitCount/1024.0/1024];
                                                         }
                                     
                                                     }

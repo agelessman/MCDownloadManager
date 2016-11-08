@@ -120,6 +120,7 @@ typedef NS_ENUM(NSInteger, MCDownloadPrioritization) {
                                           success:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse  * _Nullable response, NSURL *filePath))success
                                           failure:(nullable void (^)(NSURLRequest *request, NSHTTPURLResponse * _Nullable response, NSError *error))failure;
 
+
 - (MCDownloadReceipt * _Nullable)downloadReceiptForURL:(NSString *)url;
 
 @end
