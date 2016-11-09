@@ -331,6 +331,9 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
         if (!self.tasks[receipt.url]) {
             
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:receipt.url]];
+            request.HTTPMethod = @"GET";
+//             [request setValue:@"application/zip" forHTTPHeaderField:@"Content-Type"];
+            
             NSString *range = [NSString stringWithFormat:@"bytes=%zd-", receipt.totalBytesWritten];
             [request setValue:range forHTTPHeaderField:@"Range"];
             NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
@@ -543,8 +546,6 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
     receipt.state = MCDownloadStateDownloading;
 
     [self saveReceipts:self.allDownloadReceipts];
-
-//    [receipt.stream open];
     
     completionHandler(NSURLSessionResponseAllow);
 }
@@ -552,54 +553,51 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_sync(self.synchronizationQueue, ^{
+
         __block NSError *error = nil;
+        MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
+        NSInputStream *inputStream =  [[NSInputStream alloc] initWithData:data];
+        NSOutputStream *outputStream = [[NSOutputStream alloc] initWithURL:[NSURL fileURLWithPath:receipt.filePath] append:YES];
+        [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+        [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [inputStream open];
+        [outputStream open];
+        
+        while ([inputStream hasBytesAvailable] && [outputStream hasSpaceAvailable]) {
+            uint8_t buffer[1024];
             
-            MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
-            NSInputStream *inputStream =  [[NSInputStream alloc] initWithData:data];;
-            NSOutputStream *outputStream = [[NSOutputStream alloc] initWithURL:[NSURL fileURLWithPath:receipt.filePath] append:YES];
-            [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-            [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-            
-            [inputStream open];
-            [outputStream open];
-
-            while ([inputStream hasBytesAvailable] && [outputStream hasSpaceAvailable]) {
-                uint8_t buffer[1024];
-                
-                NSInteger bytesRead = [inputStream read:buffer maxLength:1024];
-                if (inputStream.streamError || bytesRead < 0) {
-                    error = inputStream.streamError;
-                    break;
-                }
-                
-                NSInteger bytesWritten = [outputStream write:buffer maxLength:(NSUInteger)bytesRead];
-                if (outputStream.streamError || bytesWritten < 0) {
-                    error = outputStream.streamError;
-                    break;
-                }
-                
-                if (bytesRead == 0 && bytesWritten == 0) {
-                    break;
-                }
+            NSInteger bytesRead = [inputStream read:buffer maxLength:1024];
+            if (inputStream.streamError || bytesRead < 0) {
+                error = inputStream.streamError;
+                break;
             }
-            [outputStream close];
-            [inputStream close];
             
-            receipt.progress.totalUnitCount = receipt.totalBytesExpectedToWrite;
-            receipt.progress.completedUnitCount = receipt.totalBytesWritten;
+            NSInteger bytesWritten = [outputStream write:buffer maxLength:(NSUInteger)bytesRead];
+            if (outputStream.streamError || bytesWritten < 0) {
+                error = outputStream.streamError;
+                break;
+            }
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (receipt.progressBlock) {
-                    receipt.progressBlock(receipt.progress,receipt);
-                }
-            });
+            if (bytesRead == 0 && bytesWritten == 0) {
+                break;
+            }
+        }
+        [outputStream close];
+        [inputStream close];
+        
+        receipt.progress.totalUnitCount = receipt.totalBytesExpectedToWrite;
+        receipt.progress.completedUnitCount = receipt.totalBytesWritten;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (receipt.progressBlock) {
+                receipt.progressBlock(receipt.progress,receipt);
+            }
         });
-
     });
-    }
+
+}
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {

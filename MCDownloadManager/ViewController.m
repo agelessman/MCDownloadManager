@@ -24,8 +24,9 @@
     if (!_urls) {
         self.urls = [NSMutableArray array];
         for (int i = 1; i<=10; i++) {
-            [self.urls addObject:[NSString stringWithFormat:@"http://120.25.226.186:32812/resources/videos/minion_%02d.mp4", i]];
-       
+//            [self.urls addObject:[NSString stringWithFormat:@"http://120.25.226.186:32812/resources/videos/minion_%02d.mp4", i]];
+
+       [self.urls addObject:@"http://localhost/001.pdf"];
         }
     }
     return _urls;
@@ -121,8 +122,9 @@
 }
 
 - (void)cell:(TableViewCell *)cell didClickedBtn:(UIButton *)btn {
+    MCDownloadReceipt *receipt = [[MCDownloadManager defaultInstance] downloadReceiptForURL:cell.url];
     UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    MPMoviePlayerViewController *mpc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:cell.url]];
+    MPMoviePlayerViewController *mpc = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:receipt.filePath]];
     [vc presentViewController:mpc animated:YES completion:nil];
 }
 
