@@ -17,7 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSString * const MCDownloadCacheFolderName;
-
+@class MCDownloadReceipt;
 /** The download state */
 typedef NS_ENUM(NSUInteger, MCDownloadState) {
     MCDownloadStateNone,           /** default */
@@ -34,6 +34,9 @@ typedef NS_ENUM(NSInteger, MCDownloadPrioritization) {
     MCDownloadPrioritizationLIFO   /** last in first out */
 };
 
+typedef void (^sucessBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable, NSURL * _Nonnull);
+typedef void (^failureBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable,  NSError * _Nonnull);
+typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 /**
  *  The receipt of a downloader,we can get all the informationg by the receipt.
@@ -55,6 +58,10 @@ typedef NS_ENUM(NSInteger, MCDownloadPrioritization) {
 @property (nonatomic, copy, readonly, nonnull) NSProgress *progress;
 
 @property (nonatomic, strong, readonly, nullable) NSError *error;
+
+@property (nonatomic,copy)sucessBlock successBlock;
+@property (nonatomic,copy)failureBlock failureBlock;
+@property (nonatomic,copy)progressBlock progressBlock;
 @end
 
 

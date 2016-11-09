@@ -64,9 +64,7 @@ static NSString * getMD5String(NSString *str) {
 }
 
 
-typedef void (^sucessBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable, NSURL * _Nonnull);
-typedef void (^failureBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable,  NSError * _Nonnull);
-typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
+
 
 
 @interface MCDownloadReceipt()
@@ -82,9 +80,6 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 @property (strong, nonatomic) NSOutputStream *stream;
 
-@property (nonatomic,copy)sucessBlock successBlock;
-@property (nonatomic,copy)failureBlock failureBlock;
-@property (nonatomic,copy)progressBlock progressBlock;
 @end
 @implementation MCDownloadReceipt
 
