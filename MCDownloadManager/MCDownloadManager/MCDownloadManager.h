@@ -34,9 +34,9 @@ typedef NS_ENUM(NSInteger, MCDownloadPrioritization) {
     MCDownloadPrioritizationLIFO   /** last in first out */
 };
 
-typedef void (^sucessBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable, NSURL * _Nonnull);
-typedef void (^failureBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable,  NSError * _Nonnull);
-typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
+typedef void (^MCSucessBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable, NSURL * _Nonnull);
+typedef void (^MCFailureBlock)(NSURLRequest * _Nullable, NSHTTPURLResponse * _Nullable,  NSError * _Nonnull);
+typedef void (^MCProgressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 /**
  *  The receipt of a downloader,we can get all the informationg by the receipt.
@@ -59,9 +59,9 @@ typedef void (^progressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 
 @property (nonatomic, strong, readonly, nullable) NSError *error;
 
-@property (nonatomic,copy)sucessBlock successBlock;
-@property (nonatomic,copy)failureBlock failureBlock;
-@property (nonatomic,copy)progressBlock progressBlock;
+@property (nonatomic,copy)MCSucessBlock successBlock;
+@property (nonatomic,copy)MCFailureBlock failureBlock;
+@property (nonatomic,copy)MCProgressBlock progressBlock;
 @end
 
 
