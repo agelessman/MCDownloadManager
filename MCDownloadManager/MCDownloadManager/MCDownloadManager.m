@@ -271,10 +271,9 @@ static NSString * getMD5String(NSString *str) {
 - (MCDownloadReceipt *)updateReceiptWithURL:(NSString *)url state:(MCDownloadState)state {
     MCDownloadReceipt *receipt = [self downloadReceiptForURL:url];
     receipt.state = state;
-//    @synchronized (self) {
-        [self saveReceipts:self.allDownloadReceipts];
-//    }
-    
+
+    [self saveReceipts:self.allDownloadReceipts];
+
     return receipt;
 }
 
@@ -312,7 +311,7 @@ static NSString * getMD5String(NSString *str) {
             return ;
         }
         
-        if (receipt.state == MCDownloadStateDownloading) {
+        if (receipt.state == MCDownloadStateDownloading && receipt.totalBytesWritten != receipt.totalBytesExpectedToWrite) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (receipt.progressBlock) {
                     receipt.progressBlock(receipt.progress,receipt);
@@ -321,13 +320,10 @@ static NSString * getMD5String(NSString *str) {
             return ;
         }
 
-        
-        
-        if (!self.tasks[receipt.url]) {
-            
+        NSURLSessionDataTask *task = self.tasks[receipt.url];
+        // 当请求暂停一段时间后。转态会变化。所有要判断下状态
+        if (!task || ((task.state != NSURLSessionTaskStateRunning) && (task.state != NSURLSessionTaskStateSuspended))) {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:receipt.url]];
-            request.HTTPMethod = @"GET";
-//             [request setValue:@"application/zip" forHTTPHeaderField:@"Content-Type"];
             
             NSString *range = [NSString stringWithFormat:@"bytes=%zd-", receipt.totalBytesWritten];
             [request setValue:range forHTTPHeaderField:@"Range"];
@@ -336,6 +332,7 @@ static NSString * getMD5String(NSString *str) {
             self.tasks[receipt.url] = task;
             [self.queuedTasks addObject:task];
         }
+
         [self resumeWithDownloadReceipt:receipt];
 
         
@@ -427,10 +424,10 @@ static NSString * getMD5String(NSString *str) {
     MCDownloadReceipt *receipt = [[MCDownloadReceipt alloc] initWithURL:url];
     receipt.state = MCDownloadStateNone;
     receipt.totalBytesExpectedToWrite = 1;
-//    @synchronized (self) {
-        [self.allDownloadReceipts addObject:receipt];
-        [self saveReceipts:self.allDownloadReceipts];
-//    }
+
+    [self.allDownloadReceipts addObject:receipt];
+    [self saveReceipts:self.allDownloadReceipts];
+
     
     return receipt;
 }
@@ -459,7 +456,9 @@ static NSString * getMD5String(NSString *str) {
 - (void)resumeWithDownloadReceipt:(MCDownloadReceipt *)receipt {
     
     if ([self isActiveRequestCountBelowMaximumLimit]) {
-        if (!self.tasks[receipt.url]) {
+        NSURLSessionDataTask *task = self.tasks[receipt.url];
+        // 当请求暂停一段时间后。转态会变化。所有要判断下状态
+        if (!task || ((task.state != NSURLSessionTaskStateRunning) && (task.state != NSURLSessionTaskStateSuspended))) {
             [self downloadFileWithURL:receipt.url progress:receipt.progressBlock destination:nil success:receipt.successBlock failure:receipt.failureBlock];
         }else {
             [self startTask:self.tasks[receipt.url]];
@@ -474,18 +473,15 @@ static NSString * getMD5String(NSString *str) {
 
 - (void)suspendAll {
     
-   
-    @synchronized (self) {
-        for (NSURLSessionDataTask *task in self.queuedTasks) {
-            
-            MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
-            receipt.state = MCDownloadStateFailed;
-            [task suspend];
-        }
-        [self saveReceipts:self.allDownloadReceipts];
+    for (NSURLSessionDataTask *task in self.queuedTasks) {
+        
+        MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
+        receipt.state = MCDownloadStateFailed;
+        [task suspend];
+        -- self.activeRequestCount;
     }
-    
-    
+    [self saveReceipts:self.allDownloadReceipts];
+
 }
 -(void)suspendWithURL:(NSString *)url {
     
@@ -501,6 +497,7 @@ static NSString * getMD5String(NSString *str) {
     NSURLSessionDataTask *task = self.tasks[receipt.url];
     if (task) {
         [task suspend];
+        -- self.activeRequestCount;
     }
 
 }
