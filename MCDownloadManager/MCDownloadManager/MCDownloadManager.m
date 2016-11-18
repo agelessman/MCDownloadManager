@@ -425,10 +425,11 @@ static NSString * getMD5String(NSString *str) {
     receipt.state = MCDownloadStateNone;
     receipt.totalBytesExpectedToWrite = 1;
 
-    [self.allDownloadReceipts addObject:receipt];
-    [self saveReceipts:self.allDownloadReceipts];
+    dispatch_sync(self.synchronizationQueue, ^{
+        [self.allDownloadReceipts addObject:receipt];
+        [self saveReceipts:self.allDownloadReceipts];
+    });
 
-    
     return receipt;
 }
 
@@ -521,10 +522,10 @@ static NSString * getMD5String(NSString *str) {
     [self.queuedTasks removeObject:task];
     [self safelyRemoveTaskWithURLIdentifier:receipt.url];
 
-    @synchronized (self) {
+    dispatch_sync(self.synchronizationQueue, ^{
         [self.allDownloadReceipts removeObject:receipt];
         [self saveReceipts:self.allDownloadReceipts];
-    }
+    });
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager removeItemAtPath:receipt.filePath error:nil];
