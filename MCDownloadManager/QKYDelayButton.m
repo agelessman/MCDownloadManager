@@ -8,7 +8,7 @@
 
 #import "QKYDelayButton.h"
 
-static NSTimeInterval defaultDuration = 2.0f;
+static NSTimeInterval defaultDuration = 1.0f;
 
 static BOOL _isIgnoreEvent = NO;
 

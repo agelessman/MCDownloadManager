@@ -189,7 +189,7 @@ static NSString * getMD5String(NSString *str) {
 @property (nonatomic, strong) NSMutableArray *queuedTasks;
 @property (nonatomic, strong) NSMutableDictionary *tasks;
 
-@property (nonatomic, strong) NSMutableArray *allDownloadReceipts;
+@property (nonatomic, strong) NSMutableDictionary *allDownloadReceipts;
 
 @end
 
@@ -256,15 +256,15 @@ static NSString * getMD5String(NSString *str) {
 }
 
 
-- (NSMutableArray *)allDownloadReceipts {
+- (NSMutableDictionary *)allDownloadReceipts {
     if (_allDownloadReceipts == nil) {
-         NSArray *receipts = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalReceiptsPath()];
-        _allDownloadReceipts = receipts != nil ? receipts.mutableCopy : [NSMutableArray array];
+         NSDictionary *receipts = [NSKeyedUnarchiver unarchiveObjectWithFile:LocalReceiptsPath()];
+        _allDownloadReceipts = receipts != nil ? receipts.mutableCopy : [NSMutableDictionary dictionary];
     }
     return _allDownloadReceipts;
 }
 
-- (void)saveReceipts:(NSArray <MCDownloadReceipt *>*)receipts {
+- (void)saveReceipts:(NSDictionary *)receipts {
     [NSKeyedArchiver archiveRootObject:receipts toFile:LocalReceiptsPath()];
 }
 
@@ -416,17 +416,14 @@ static NSString * getMD5String(NSString *str) {
 - (MCDownloadReceipt *)downloadReceiptForURL:(NSString *)url {
     
     if (url == nil) return nil;
-    for (MCDownloadReceipt *receipt in self.allDownloadReceipts) {
-        if ([receipt.url isEqualToString:url]) {
-            return receipt;
-        }
-    }
-    MCDownloadReceipt *receipt = [[MCDownloadReceipt alloc] initWithURL:url];
+    MCDownloadReceipt *receipt = self.allDownloadReceipts[url];
+    if (receipt) return receipt;
+    receipt = [[MCDownloadReceipt alloc] initWithURL:url];
     receipt.state = MCDownloadStateNone;
     receipt.totalBytesExpectedToWrite = 1;
 
     dispatch_sync(self.synchronizationQueue, ^{
-        [self.allDownloadReceipts addObject:receipt];
+        [self.allDownloadReceipts setObject:receipt forKey:url];
         [self saveReceipts:self.allDownloadReceipts];
     });
 
@@ -523,7 +520,7 @@ static NSString * getMD5String(NSString *str) {
     [self safelyRemoveTaskWithURLIdentifier:receipt.url];
 
     dispatch_sync(self.synchronizationQueue, ^{
-        [self.allDownloadReceipts removeObject:receipt];
+        [self.allDownloadReceipts removeObjectForKey:receipt.url];
         [self saveReceipts:self.allDownloadReceipts];
     });
     
