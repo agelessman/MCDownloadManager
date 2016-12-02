@@ -476,7 +476,7 @@ static NSString * getMD5String(NSString *str) {
         MCDownloadReceipt *receipt = [self downloadReceiptForURL:task.taskDescription];
         receipt.state = MCDownloadStateFailed;
         [task suspend];
-        -- self.activeRequestCount;
+        [self safelyDecrementActiveTaskCount];
     }
     [self saveReceipts:self.allDownloadReceipts];
 
@@ -495,7 +495,8 @@ static NSString * getMD5String(NSString *str) {
     NSURLSessionDataTask *task = self.tasks[receipt.url];
     if (task) {
         [task suspend];
-        -- self.activeRequestCount;
+        [self safelyDecrementActiveTaskCount];
+        [self safelyStartNextTaskIfNecessary];
     }
 
 }
