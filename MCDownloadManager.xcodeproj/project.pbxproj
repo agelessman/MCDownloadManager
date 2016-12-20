@@ -41,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		521970A81DF69503009C7D65 /* MCDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDefine.h; sourceTree = "<group>"; };
 		9B0E8D261D825CDC00452963 /* QKYDelayButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QKYDelayButton.h; sourceTree = "<group>"; };
 		9B0E8D271D825CDC00452963 /* QKYDelayButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QKYDelayButton.m; sourceTree = "<group>"; };
 		9B24E5BF1D7D44D300AA2ECC /* MCDownloadManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCDownloadManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +165,7 @@
 		9B24E5D91D7D451200AA2ECC /* MCDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				521970A81DF69503009C7D65 /* MCDefine.h */,
 				9B24E5DA1D7D453B00AA2ECC /* MCDownloadManager.h */,
 				9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */,
 				9B2989E61D891B5E00931219 /* MCWiFiManager.h */,

@@ -72,6 +72,7 @@ static NSString * getMD5String(NSString *str) {
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, copy) NSString *filename;
+@property (nonatomic, copy) NSString *truename;
 @property (nonatomic, assign) MCDownloadState state;
 
 @property (assign, nonatomic) long long totalBytesWritten;
@@ -116,6 +117,13 @@ static NSString * getMD5String(NSString *str) {
         }
     }
     return _filename;
+}
+
+- (NSString *)truename {
+    if (_truename == nil) {
+        _truename = self.url.lastPathComponent;
+    }
+    return _truename;
 }
 
 - (NSProgress *)progress {

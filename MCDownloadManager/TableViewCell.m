@@ -34,11 +34,11 @@
 - (void)setUrl:(NSString *)url {
     _url = url;
     
-    self.nameLabel.text = url.lastPathComponent;
-    self.progressView.progress = 0;
-    
     MCDownloadReceipt *receipt = [[MCDownloadManager defaultInstance] downloadReceiptForURL:url];
 
+    self.nameLabel.text = receipt.truename;
+    self.progressView.progress = 0;
+    
     self.progressView.progress = receipt.progress.fractionCompleted;
     
     if (receipt.state == MCDownloadStateDownloading) {
