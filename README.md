@@ -12,6 +12,7 @@ This version only supports 10 file downloads at the same time.
 
 `configuration.HTTPMaximumConnectionsPerHost = 10;`
 
+**添加了速度提示（比如：400KB/s）**
 
 ## Usage
 	- (void)download {
