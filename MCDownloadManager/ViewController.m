@@ -14,6 +14,9 @@
 
 @interface ViewController () <TableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *label;
+
+
+
 @property (strong, nonatomic) NSMutableArray *urls;
 @end
 

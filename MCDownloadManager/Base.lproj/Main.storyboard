@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XBH-d4-pjl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="XBH-d4-pjl">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,19 +36,20 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="nfC-Nz-jA2" customClass="TableViewCell">
-                                <rect key="frame" x="0.0" y="92" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nfC-Nz-jA2" id="N2j-3F-jn1">
-                                    <frame key="frameInset" width="375" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onP-Sp-BKl">
-                                            <frame key="frameInset" minX="8" minY="8" width="584" height="10"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="10"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="10" id="cg5-ac-4tP"/>
                                             </constraints>
                                         </progressView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XZ-N6-uuX">
+                                            <rect key="frame" x="8" y="48" width="150" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="ZMO-ae-wpX"/>
                                                 <constraint firstAttribute="width" constant="150" id="fjh-Bz-FWY"/>
@@ -55,6 +59,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cx6-u4-a8j" customClass="QKYDelayButton">
+                                            <rect key="frame" x="285" y="42.5" width="80" height="47"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="47" id="LnF-HM-gpd"/>
                                                 <constraint firstAttribute="width" constant="80" id="Rch-SF-Ybl"/>
@@ -64,10 +69,18 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSQ-qo-aWm">
+                                            <rect key="frame" x="165" y="60.5" width="100" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="1eo-Yw-uG0"/>
                                                 <constraint firstAttribute="width" constant="100" id="Fq1-6B-REw"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P5Q-hN-O01">
+                                            <rect key="frame" x="190" y="40" width="87" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -92,6 +105,7 @@
                                     <outlet property="bytesLable" destination="SSQ-qo-aWm" id="gO0-ew-W9U"/>
                                     <outlet property="nameLabel" destination="8XZ-N6-uuX" id="Hel-QO-2ba"/>
                                     <outlet property="progressView" destination="onP-Sp-BKl" id="Cbo-FG-bqf"/>
+                                    <outlet property="speedLable" destination="P5Q-hN-O01" id="TKd-IQ-qZu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -110,7 +124,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xeo-Ys-Jau" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-756" y="21"/>
+            <point key="canvasLocation" x="-756" y="20.239880059970016"/>
         </scene>
     </scenes>
 </document>

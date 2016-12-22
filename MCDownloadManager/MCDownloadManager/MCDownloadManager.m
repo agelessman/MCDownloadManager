@@ -65,14 +65,13 @@ static NSString * getMD5String(NSString *str) {
 
 
 
-
-
 @interface MCDownloadReceipt()
 
 @property (nonatomic, copy) NSString *url;
 @property (nonatomic, copy) NSString *filePath;
 @property (nonatomic, copy) NSString *filename;
 @property (nonatomic, copy) NSString *truename;
+@property (nonatomic, copy) NSString *speed;  // KB/s
 @property (nonatomic, assign) MCDownloadState state;
 
 @property (assign, nonatomic) long long totalBytesWritten;
@@ -80,6 +79,10 @@ static NSString * getMD5String(NSString *str) {
 @property (nonatomic, copy) NSProgress *progress;
 
 @property (strong, nonatomic) NSOutputStream *stream;
+
+@property (nonatomic, assign) NSUInteger totalRead;
+@property (nonatomic, strong) NSDate *date;
+
 
 @end
 @implementation MCDownloadReceipt
@@ -242,7 +245,6 @@ static NSString * getMD5String(NSString *str) {
         self.tasks = [[NSMutableDictionary alloc] init];
         self.activeRequestCount = 0;
         
-
         NSString *name = [NSString stringWithFormat:@"com.mc.downloadManager.synchronizationqueue-%@", [[NSUUID UUID] UUIDString]];
         self.synchronizationQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_SERIAL);
 
@@ -468,6 +470,7 @@ static NSString * getMD5String(NSString *str) {
             [self downloadFileWithURL:receipt.url progress:receipt.progressBlock destination:nil success:receipt.successBlock failure:receipt.failureBlock];
         }else {
             [self startTask:self.tasks[receipt.url]];
+            receipt.date = [NSDate date];
         }
         
     }else {
@@ -556,6 +559,19 @@ static NSString * getMD5String(NSString *str) {
 
         __block NSError *error = nil;
         MCDownloadReceipt *receipt = [self downloadReceiptForURL:dataTask.taskDescription];
+
+        // Speed
+        receipt.totalRead += data.length;
+        NSDate *currentDate = [NSDate date];
+        if ([currentDate timeIntervalSinceDate:receipt.date] >= 1) {
+            double time = [currentDate timeIntervalSinceDate:receipt.date];
+            long long speed = receipt.totalRead/time;
+            receipt.speed = [self formatByteCount:speed];
+            receipt.totalRead = 0.0;
+            receipt.date = currentDate;
+        }
+        
+        // Write Data
         NSInputStream *inputStream =  [[NSInputStream alloc] initWithData:data];
         NSOutputStream *outputStream = [[NSOutputStream alloc] initWithURL:[NSURL fileURLWithPath:receipt.filePath] append:YES];
         [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
@@ -619,11 +635,15 @@ static NSString * getMD5String(NSString *str) {
             }
         });
     }
-//    @synchronized (self) {
-        [self saveReceipts:self.allDownloadReceipts];
-//    }
+
+    [self saveReceipts:self.allDownloadReceipts];
     [self safelyDecrementActiveTaskCount];
     [self safelyStartNextTaskIfNecessary];
     
+}
+
+- (NSString*)formatByteCount:(long long)size
+{
+    return [NSByteCountFormatter stringFromByteCount:size countStyle:NSByteCountFormatterCountStyleFile];
 }
 @end

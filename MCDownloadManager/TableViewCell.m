@@ -37,6 +37,8 @@
     MCDownloadReceipt *receipt = [[MCDownloadManager defaultInstance] downloadReceiptForURL:url];
 
     self.nameLabel.text = receipt.truename;
+    self.speedLable.text = nil;
+    self.bytesLable.text = nil;
     self.progressView.progress = 0;
     
     self.progressView.progress = receipt.progress.fractionCompleted;
@@ -49,7 +51,21 @@
          [self.button setTitle:@"下载" forState:UIControlStateNormal];
     }
     
+    receipt.progressBlock = ^(NSProgress * _Nonnull downloadProgress,MCDownloadReceipt *receipt) {
+        if ([receipt.url isEqualToString:self.url]) {
+            self.progressView.progress = downloadProgress.fractionCompleted ;
+            self.bytesLable.text = [NSString stringWithFormat:@"%0.2fm/%0.2fm", downloadProgress.completedUnitCount/1024.0/1024, downloadProgress.totalUnitCount/1024.0/1024];
+            self.speedLable.text = [NSString stringWithFormat:@"%@/s", receipt.speed];
+        }
+    };
+    
+    receipt.successBlock = ^(NSURLRequest * _Nullablerequest, NSHTTPURLResponse * _Nullableresponse, NSURL * _NonnullfilePath) {
+         [self.button setTitle:@"播放" forState:UIControlStateNormal];
+    };
 
+    receipt.failureBlock = ^(NSURLRequest * _Nullable request, NSHTTPURLResponse * _Nullable response,  NSError * _Nonnull error) {
+        [self.button setTitle:@"下载" forState:UIControlStateNormal];
+    };
   
 }
 - (IBAction)buttonAction:(UIButton *)sender {
@@ -78,6 +94,7 @@
                                                         if ([receipt.url isEqualToString:self.url]) {
                                                             self.progressView.progress = downloadProgress.fractionCompleted ;
                                                             self.bytesLable.text = [NSString stringWithFormat:@"%0.2fm/%0.2fm", downloadProgress.completedUnitCount/1024.0/1024, downloadProgress.totalUnitCount/1024.0/1024];
+                                                            self.speedLable.text = [NSString stringWithFormat:@"%@/s", receipt.speed];
                                                         }
                                     
                                                     }

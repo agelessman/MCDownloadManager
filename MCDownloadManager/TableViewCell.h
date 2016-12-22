@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet QKYDelayButton *button;
 @property (weak, nonatomic) IBOutlet UILabel *bytesLable;
+@property (weak, nonatomic) IBOutlet UILabel *speedLable;
+
+
 @property (nonatomic, weak) id <TableViewCellDelegate> delegate;
 @property (nonatomic,copy)NSString *url;
 @end

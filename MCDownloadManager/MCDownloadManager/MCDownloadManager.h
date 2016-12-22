@@ -52,6 +52,7 @@ typedef void (^MCProgressBlock)(NSProgress * _Nonnull,MCDownloadReceipt *);
 @property (nonatomic, copy, readonly, nonnull) NSString *filePath;
 @property (nonatomic, copy, readonly, nullable) NSString *filename;
 @property (nonatomic, copy, readonly, nullable) NSString *truename;
+@property (nonatomic, copy, readonly) NSString *speed;  // KB/s
 
 @property (assign, nonatomic, readonly) long long totalBytesWritten;
 @property (assign, nonatomic, readonly) long long totalBytesExpectedToWrite;
