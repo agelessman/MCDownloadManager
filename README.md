@@ -27,13 +27,7 @@ $ gem install cocoapods
 To integrate MCDownloadManager into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '10.0'
-use_frameworks!
-
-target '<Your Target Name>' do
-    pod 'MCDownloadManager', '~> 1.0.0'
-end
+pod 'MCDownloadManager', '~> 1.0.0'
 ```
 
 Then, run the following command:
