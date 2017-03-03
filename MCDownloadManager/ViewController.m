@@ -11,6 +11,8 @@
 #import "TableViewCell.h"
 #import "MCWiFiManager.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "TestViewController.h"
+
 
 @interface ViewController () <TableViewCellDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *label;
@@ -75,6 +77,10 @@
 }
 
 - (IBAction)nextAction:(id)sender {
+    
+    TestViewController *vc = [[TestViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    return;
     
     NSArray *urls = @[
           @"http://mhpic.taomanhua.com/comic/M%2F%E8%8E%BD%E8%8D%92%E7%BA%AA%2F34%E8%AF%9D%E5%86%8D%E6%88%98%E7%BF%BC%E8%9B%87%E4%BA%8C%2F1.jpg",

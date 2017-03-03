@@ -38,6 +38,7 @@
 		9B9CE6281D92538E0045E869 /* MCURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9CE6271D92538E0045E869 /* MCURLResponse.m */; };
 		9BA54A981D9511F800C2E8D5 /* MCURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */; };
 		9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */; };
+		E78B54CB1E66C5C100C28612 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54CA1E66C5C100C28612 /* TestViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,8 @@
 		9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequest.m; sourceTree = "<group>"; };
 		9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLSessionConfiguration.h; sourceTree = "<group>"; };
 		9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLSessionConfiguration.m; sourceTree = "<group>"; };
+		E78B54C91E66C5C100C28612 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		E78B54CA1E66C5C100C28612 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,8 @@
 				9B24E5C61D7D44D300AA2ECC /* AppDelegate.m */,
 				9B24E5C81D7D44D300AA2ECC /* ViewController.h */,
 				9B24E5C91D7D44D300AA2ECC /* ViewController.m */,
+				E78B54C91E66C5C100C28612 /* TestViewController.h */,
+				E78B54CA1E66C5C100C28612 /* TestViewController.m */,
 				9B48434C1D7EC00E00A2CBBE /* TableViewCell.h */,
 				9B48434D1D7EC00E00A2CBBE /* TableViewCell.m */,
 				9B0E8D261D825CDC00452963 /* QKYDelayButton.h */,
@@ -314,6 +319,7 @@
 			files = (
 				9B48433D1D7E572900A2CBBE /* AFSecurityPolicy.m in Sources */,
 				9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */,
+				E78B54CB1E66C5C100C28612 /* TestViewController.m in Sources */,
 				9B4843481D7E572900A2CBBE /* UIImageView+AFNetworking.m in Sources */,
 				9B48433F1D7E572900A2CBBE /* AFURLResponseSerialization.m in Sources */,
 				9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */,
