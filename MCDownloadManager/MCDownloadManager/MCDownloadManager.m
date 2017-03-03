@@ -190,8 +190,14 @@ static NSString * getMD5String(NSString *str) {
 
 #pragma mark -
 
+#if OS_OBJECT_USE_OBJC
+#define MCDispatchQueueSetterSementics strong
+#else
+#define MCDispatchQueueSetterSementics assign
+#endif
+
 @interface MCDownloadManager () <NSURLSessionDataDelegate>
-@property (nonatomic, strong) dispatch_queue_t synchronizationQueue;
+@property (nonatomic, MCDispatchQueueSetterSementics) dispatch_queue_t synchronizationQueue;
 @property (strong, nonatomic) NSURLSession *session;
 
 @property (nonatomic, assign) NSInteger maximumActiveDownloads;
