@@ -15,7 +15,6 @@
 		9B24E5CF1D7D44D300AA2ECC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5CE1D7D44D300AA2ECC /* Assets.xcassets */; };
 		9B24E5D21D7D44D300AA2ECC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B24E5D01D7D44D300AA2ECC /* LaunchScreen.storyboard */; };
 		9B24E5DC1D7D453B00AA2ECC /* MCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */; };
-		9B27A98E1D9E5A8D00A11EC9 /* MCURLRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */; };
 		9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2989E71D891B5E00931219 /* MCWiFiManager.m */; };
 		9B48433B1D7E572900A2CBBE /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4843181D7E572900A2CBBE /* AFHTTPSessionManager.m */; };
 		9B48433C1D7E572900A2CBBE /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48431B1D7E572900A2CBBE /* AFNetworkReachabilityManager.m */; };
@@ -35,10 +34,11 @@
 		9B48434A1D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4843381D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m */; };
 		9B48434B1D7E572900A2CBBE /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48433A1D7E572900A2CBBE /* UIWebView+AFNetworking.m */; };
 		9B48434E1D7EC00E00A2CBBE /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B48434D1D7EC00E00A2CBBE /* TableViewCell.m */; };
-		9B9CE6281D92538E0045E869 /* MCURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B9CE6271D92538E0045E869 /* MCURLResponse.m */; };
-		9BA54A981D9511F800C2E8D5 /* MCURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */; };
-		9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */; };
 		E78B54CB1E66C5C100C28612 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54CA1E66C5C100C28612 /* TestViewController.m */; };
+		E78B54D51E69214900C28612 /* MCURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54CE1E69214900C28612 /* MCURLRequest.m */; };
+		E78B54D61E69214900C28612 /* MCURLRequestCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54D01E69214900C28612 /* MCURLRequestCenter.m */; };
+		E78B54D71E69214900C28612 /* MCURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54D21E69214900C28612 /* MCURLResponse.m */; };
+		E78B54D81E69214900C28612 /* MCURLSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B54D41E69214900C28612 /* MCURLSessionConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,8 +57,6 @@
 		9B24E5D31D7D44D300AA2ECC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B24E5DA1D7D453B00AA2ECC /* MCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDownloadManager.h; sourceTree = "<group>"; };
 		9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCDownloadManager.m; sourceTree = "<group>"; };
-		9B27A98C1D9E5A8D00A11EC9 /* MCURLRequestCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequestCenter.h; sourceTree = "<group>"; };
-		9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequestCenter.m; sourceTree = "<group>"; };
 		9B2989E61D891B5E00931219 /* MCWiFiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCWiFiManager.h; sourceTree = "<group>"; };
 		9B2989E71D891B5E00931219 /* MCWiFiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCWiFiManager.m; sourceTree = "<group>"; };
 		9B4843171D7E572900A2CBBE /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -98,14 +96,16 @@
 		9B48433A1D7E572900A2CBBE /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		9B48434C1D7EC00E00A2CBBE /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		9B48434D1D7EC00E00A2CBBE /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
-		9B9CE6261D92538D0045E869 /* MCURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLResponse.h; sourceTree = "<group>"; };
-		9B9CE6271D92538E0045E869 /* MCURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLResponse.m; sourceTree = "<group>"; };
-		9BA54A961D9511F800C2E8D5 /* MCURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequest.h; sourceTree = "<group>"; };
-		9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequest.m; sourceTree = "<group>"; };
-		9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLSessionConfiguration.h; sourceTree = "<group>"; };
-		9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLSessionConfiguration.m; sourceTree = "<group>"; };
 		E78B54C91E66C5C100C28612 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		E78B54CA1E66C5C100C28612 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		E78B54CD1E69214900C28612 /* MCURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequest.h; sourceTree = "<group>"; };
+		E78B54CE1E69214900C28612 /* MCURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequest.m; sourceTree = "<group>"; };
+		E78B54CF1E69214900C28612 /* MCURLRequestCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLRequestCenter.h; sourceTree = "<group>"; };
+		E78B54D01E69214900C28612 /* MCURLRequestCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLRequestCenter.m; sourceTree = "<group>"; };
+		E78B54D11E69214900C28612 /* MCURLResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLResponse.h; sourceTree = "<group>"; };
+		E78B54D21E69214900C28612 /* MCURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLResponse.m; sourceTree = "<group>"; };
+		E78B54D31E69214900C28612 /* MCURLSessionConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCURLSessionConfiguration.h; sourceTree = "<group>"; };
+		E78B54D41E69214900C28612 /* MCURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLSessionConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +138,7 @@
 		9B24E5C11D7D44D300AA2ECC /* MCDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				E78B54CC1E69214900C28612 /* Networking */,
 				9B4843151D7E572900A2CBBE /* AFNetworking */,
 				9B24E5D91D7D451200AA2ECC /* MCDownloadManager */,
 				9B24E5C51D7D44D300AA2ECC /* AppDelegate.h */,
@@ -175,14 +176,6 @@
 				9B24E5DB1D7D453B00AA2ECC /* MCDownloadManager.m */,
 				9B2989E61D891B5E00931219 /* MCWiFiManager.h */,
 				9B2989E71D891B5E00931219 /* MCWiFiManager.m */,
-				9B9CE6261D92538D0045E869 /* MCURLResponse.h */,
-				9B9CE6271D92538E0045E869 /* MCURLResponse.m */,
-				9BA54A961D9511F800C2E8D5 /* MCURLRequest.h */,
-				9BA54A971D9511F800C2E8D5 /* MCURLRequest.m */,
-				9BA54A991D9513C500C2E8D5 /* MCURLSessionConfiguration.h */,
-				9BA54A9A1D9513C500C2E8D5 /* MCURLSessionConfiguration.m */,
-				9B27A98C1D9E5A8D00A11EC9 /* MCURLRequestCenter.h */,
-				9B27A98D1D9E5A8D00A11EC9 /* MCURLRequestCenter.m */,
 			);
 			path = MCDownloadManager;
 			sourceTree = "<group>";
@@ -243,6 +236,21 @@
 				9B48433A1D7E572900A2CBBE /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
+			sourceTree = "<group>";
+		};
+		E78B54CC1E69214900C28612 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				E78B54CD1E69214900C28612 /* MCURLRequest.h */,
+				E78B54CE1E69214900C28612 /* MCURLRequest.m */,
+				E78B54CF1E69214900C28612 /* MCURLRequestCenter.h */,
+				E78B54D01E69214900C28612 /* MCURLRequestCenter.m */,
+				E78B54D11E69214900C28612 /* MCURLResponse.h */,
+				E78B54D21E69214900C28612 /* MCURLResponse.m */,
+				E78B54D31E69214900C28612 /* MCURLSessionConfiguration.h */,
+				E78B54D41E69214900C28612 /* MCURLSessionConfiguration.m */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,30 +326,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B48433D1D7E572900A2CBBE /* AFSecurityPolicy.m in Sources */,
-				9BA54A9B1D9513C500C2E8D5 /* MCURLSessionConfiguration.m in Sources */,
+				E78B54D81E69214900C28612 /* MCURLSessionConfiguration.m in Sources */,
 				E78B54CB1E66C5C100C28612 /* TestViewController.m in Sources */,
 				9B4843481D7E572900A2CBBE /* UIImageView+AFNetworking.m in Sources */,
 				9B48433F1D7E572900A2CBBE /* AFURLResponseSerialization.m in Sources */,
 				9B2989E81D891B5E00931219 /* MCWiFiManager.m in Sources */,
+				E78B54D71E69214900C28612 /* MCURLResponse.m in Sources */,
 				9B24E5CA1D7D44D300AA2ECC /* ViewController.m in Sources */,
 				9B4843491D7E572900A2CBBE /* UIProgressView+AFNetworking.m in Sources */,
 				9B4843441D7E572900A2CBBE /* AFImageDownloader.m in Sources */,
 				9B4843431D7E572900A2CBBE /* AFAutoPurgingImageCache.m in Sources */,
 				9B48434E1D7EC00E00A2CBBE /* TableViewCell.m in Sources */,
-				9B27A98E1D9E5A8D00A11EC9 /* MCURLRequestCenter.m in Sources */,
 				9B24E5DC1D7D453B00AA2ECC /* MCDownloadManager.m in Sources */,
 				9B4843471D7E572900A2CBBE /* UIButton+AFNetworking.m in Sources */,
 				9B4843461D7E572900A2CBBE /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				9B48433B1D7E572900A2CBBE /* AFHTTPSessionManager.m in Sources */,
+				E78B54D51E69214900C28612 /* MCURLRequest.m in Sources */,
 				9B48434A1D7E572900A2CBBE /* UIRefreshControl+AFNetworking.m in Sources */,
-				9BA54A981D9511F800C2E8D5 /* MCURLRequest.m in Sources */,
 				9B48434B1D7E572900A2CBBE /* UIWebView+AFNetworking.m in Sources */,
 				9B4843401D7E572900A2CBBE /* AFURLSessionManager.m in Sources */,
 				9B24E5C71D7D44D300AA2ECC /* AppDelegate.m in Sources */,
 				9B48433C1D7E572900A2CBBE /* AFNetworkReachabilityManager.m in Sources */,
+				E78B54D61E69214900C28612 /* MCURLRequestCenter.m in Sources */,
 				9B0E8D281D825CDC00452963 /* QKYDelayButton.m in Sources */,
 				9B24E5C41D7D44D300AA2ECC /* main.m in Sources */,
-				9B9CE6281D92538E0045E869 /* MCURLResponse.m in Sources */,
 				9B4843421D7E572900A2CBBE /* README.md in Sources */,
 				9B4843451D7E572900A2CBBE /* AFNetworkActivityIndicatorManager.m in Sources */,
 				9B48433E1D7E572900A2CBBE /* AFURLRequestSerialization.m in Sources */,
