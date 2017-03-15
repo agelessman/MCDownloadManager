@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "MCDownloadManager"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "A simple and convenient multi task download manager"
 
   # This description is used to generate tags and improve search results.
