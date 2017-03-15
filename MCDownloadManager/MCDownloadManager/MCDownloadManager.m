@@ -207,7 +207,7 @@ static NSString * getMD5String(NSString *str) {
 @property (nonatomic, strong) NSMutableDictionary *tasks;
 
 @property (nonatomic, strong) NSMutableDictionary *allDownloadReceipts;
-
+@property (assign, nonatomic) UIBackgroundTaskIdentifier backgroundTaskId;
 @end
 
 @implementation MCDownloadManager
@@ -221,6 +221,7 @@ static NSString * getMD5String(NSString *str) {
     configuration.allowsCellularAccess = YES;
     configuration.timeoutIntervalForRequest = 60.0;
     configuration.HTTPMaximumConnectionsPerHost = 10;
+    configuration.discretionary = YES;
     return configuration;
 }
 
@@ -256,7 +257,8 @@ static NSString * getMD5String(NSString *str) {
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     
     return self;
@@ -455,6 +457,39 @@ static NSString * getMD5String(NSString *str) {
 - (void)applicationDidReceiveMemoryWarning:(NSNotification *)not {
     
     [self suspendAll];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)not {
+    /// 捕获到失去激活状态后
+    Class UIApplicationClass = NSClassFromString(@"UIApplication");
+    BOOL hasApplication = UIApplicationClass && [UIApplicationClass respondsToSelector:@selector(sharedApplication)];
+    if (hasApplication ) {
+        __weak __typeof__ (self) wself = self;
+        UIApplication * app = [UIApplicationClass performSelector:@selector(sharedApplication)];
+        self.backgroundTaskId = [app beginBackgroundTaskWithExpirationHandler:^{
+            __strong __typeof (wself) sself = wself;
+            
+            if (sself) {
+                [sself suspendAll];
+                
+                [app endBackgroundTask:sself.backgroundTaskId];
+                sself.backgroundTaskId = UIBackgroundTaskInvalid;
+            }
+        }];
+    }
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)not {
+
+    Class UIApplicationClass = NSClassFromString(@"UIApplication");
+    if(!UIApplicationClass || ![UIApplicationClass respondsToSelector:@selector(sharedApplication)]) {
+        return;
+    }
+    if (self.backgroundTaskId != UIBackgroundTaskInvalid) {
+        UIApplication * app = [UIApplication performSelector:@selector(sharedApplication)];
+        [app endBackgroundTask:self.backgroundTaskId];
+        self.backgroundTaskId = UIBackgroundTaskInvalid;
+    }
 }
 
 #pragma mark - MCDownloadControlDelegate

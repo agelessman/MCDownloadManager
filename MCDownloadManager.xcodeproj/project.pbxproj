@@ -54,6 +54,7 @@
 		E78B54D41E69214900C28612 /* MCURLSessionConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCURLSessionConfiguration.m; sourceTree = "<group>"; };
 		E78B54D91E693B3B00C28612 /* MCWiFiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCWiFiManager.h; sourceTree = "<group>"; };
 		E78B54DA1E693B3B00C28612 /* MCWiFiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCWiFiManager.m; sourceTree = "<group>"; };
+		E797F6CB1E78ECD300F5631B /* MCDownloadManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MCDownloadManager.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +73,7 @@
 			children = (
 				9B24E5C11D7D44D300AA2ECC /* MCDownloadManager */,
 				9B24E5C01D7D44D300AA2ECC /* Products */,
+				E797F6C81E78ECD300F5631B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +88,7 @@
 		9B24E5C11D7D44D300AA2ECC /* MCDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				E797F6CB1E78ECD300F5631B /* MCDownloadManager.entitlements */,
 				E78B54CC1E69214900C28612 /* Networking */,
 				9B24E5D91D7D451200AA2ECC /* MCDownloadManager */,
 				9B24E5C51D7D44D300AA2ECC /* AppDelegate.h */,
@@ -142,6 +145,13 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		E797F6C81E78ECD300F5631B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,6 +184,14 @@
 					9B24E5BE1D7D44D300AA2ECC = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = XC34BSW465;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InterAppAudio = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
