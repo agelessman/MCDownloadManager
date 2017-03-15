@@ -14,6 +14,8 @@ This version only supports 10 file downloads at the same time.
 
 **添加了速度提示（比如：400KB/s）**
 
+**支持后台和锁屏下载**
+
 ## Installation
 ### Cocoapods
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
